@@ -1,16 +1,26 @@
 {
   "name": "@accessible/slider",
   "version": "1.0.0",
-  "homepage": "https://github.com/accessible-ui/accessible#readme",
-  "repository": "github:accessible-ui/accessible",
-  "bugs": "https://github.com/accessible-ui/accessible/issues",
+  "homepage": "https://github.com/accessible-ui/slider#readme",
+  "repository": "github:accessible-ui/slider",
+  "bugs": "https://github.com/accessible-ui/slider/issues",
   "author": "Jared Lunde <jared.lunde@gmail.com> (https://jaredLunde.com)",
   "license": "MIT",
-  "description": "",
+  "description": "An accessible and versatile slider component for React",
   "keywords": [
     "react",
     "react component",
-    "slider"
+    "slider",
+    "accessible slider",
+    "a11y slider",
+    "react a11y slider",
+    "react accessible slider",
+    "react slider",
+    "react slider component",
+    "a11y",
+    "react aria slider",
+    "aria",
+    "aria slider"
   ],
   "main": "dist/cjs/index.js",
   "module": "dist/es/index.js",
@@ -74,7 +84,12 @@
     "ts-jest": "latest",
     "typescript": "latest"
   },
-  "dependencies": {},
+  "dependencies": {
+    "@accessible/visually-hidden": "^1.0.5",
+    "@react-hook/merged-ref": "^1.0.8",
+    "@react-hook/mouse-position": "^3.0.1",
+    "@react-hook/passive-layout-effect": "^1.0.2"
+  },
   "peerDependencies": {
     "prop-types": ">=15.6",
     "react": ">=16.8",

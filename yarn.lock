@@ -2,6 +2,11 @@
 # yarn lockfile v1
 
 
+"@accessible/visually-hidden@^1.0.5":
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/@accessible/visually-hidden/-/visually-hidden-1.0.5.tgz#dfb52e8fb06f20e421dc63fc237b2eef782bcc84"
+  integrity sha512-igshZab5ofJiZ88lKpEHSWX9Cq8vWiPtDe5eBr75P8+j0Eb9RpGkXqZv5WFPKwygczjIKrWrJxzHEybegJxFJw==
+
 "@babel/cli@latest":
   version "7.7.7"
   resolved "https://registry.yarnpkg.com/@babel/cli/-/cli-7.7.7.tgz#56849acbf81d1a970dd3d1b3097c8ebf5da3f534"
@@ -882,6 +887,14 @@
     exec-sh "^0.3.2"
     minimist "^1.2.0"
 
+"@essentials/request-timeout@^1.0.1":
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/@essentials/request-timeout/-/request-timeout-1.0.2.tgz#0fcb7d7ec186fcfc5f32685968407a2d51d6443d"
+  integrity sha512-P4pM8z1J9Ifj9SanjHyIuzV+AF/Ry6Coxm6foyza3aiDsweHME3t5sRrKv0ohpsmQLrmgt8XLlwFLPoAYLpq2Q==
+  dependencies:
+    performance-now "^2.1.0"
+    raf "^3.4.1"
+
 "@jest/console@^24.7.1", "@jest/console@^24.9.0":
   version "24.9.0"
   resolved "https://registry.yarnpkg.com/@jest/console/-/console-24.9.0.tgz#79b1bc06fb74a8cfb01cbdedf945584b1b9707f0"
@@ -1074,6 +1087,30 @@
   dependencies:
     "@nodelib/fs.scandir" "2.1.3"
     fastq "^1.6.0"
+
+"@react-hook/merged-ref@^1.0.8":
+  version "1.0.8"
+  resolved "https://registry.yarnpkg.com/@react-hook/merged-ref/-/merged-ref-1.0.8.tgz#146deba739df2724f76f4e8a29adbae0e1724994"
+  integrity sha512-ae3HwS/zCDZqoeLliqBPfHc5DeX3bhAR2rsZ2JpDm68c6Lvx05Hs5SOQIQSaRQIsGzFTinoI2TO7LyOcD8s23g==
+
+"@react-hook/mouse-position@^3.0.1":
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/@react-hook/mouse-position/-/mouse-position-3.0.1.tgz#95c32166e7ff7a03981e987a3e256744418783e9"
+  integrity sha512-P+KECv/R2x0h+EI2W2aT+fTGjzoUtzXQfiLcE2uQ7XYhnCLH8059VZMEyWZdcdlHzNJWDfR1t2stB0Y7E72hTw==
+  dependencies:
+    "@react-hook/throttle" "^1.0.9"
+
+"@react-hook/passive-layout-effect@^1.0.2":
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/@react-hook/passive-layout-effect/-/passive-layout-effect-1.0.2.tgz#a0138ece2a86d53d9ba947818715076a9aed6ba7"
+  integrity sha512-el1V2Calc5/HzUbz/Gkit9yeI/ypoap46Eo9u4EOg6+pnSQkUwU0faM22+Owp7+0cbz30fT9zFLrXy4JDuBSBQ==
+
+"@react-hook/throttle@^1.0.9":
+  version "1.0.10"
+  resolved "https://registry.yarnpkg.com/@react-hook/throttle/-/throttle-1.0.10.tgz#0e3e2573c8d4f2c04e2effa2442067f2c64787c5"
+  integrity sha512-aHcnIxgqGnH2cOMYMgcYgEy3mPQ7JXgu08yp6f11TfPYxfkAt6rD+1r+Q7cP9btz+AQ2gbkNlaD/6DALVvSzZQ==
+  dependencies:
+    "@essentials/request-timeout" "^1.0.1"
 
 "@samverschueren/stream-to-observable@^0.3.0":
   version "0.3.0"
@@ -4712,6 +4749,13 @@ qs@~6.5.2:
   version "6.5.2"
   resolved "https://registry.yarnpkg.com/qs/-/qs-6.5.2.tgz#cb3ae806e8740444584ef154ce8ee98d403f3e36"
   integrity sha512-N5ZAX4/LxJmF+7wN74pUD6qAh9/wnvdQcjq9TZjevvXzSUo7bfmw91saqMjzGS2xq91/odN2dW/WOl7qQHNDGA==
+
+raf@^3.4.1:
+  version "3.4.1"
+  resolved "https://registry.yarnpkg.com/raf/-/raf-3.4.1.tgz#0742e99a4a6552f445d73e3ee0328af0ff1ede39"
+  integrity sha512-Sq4CW4QhwOHE8ucn6J34MqtZCeWFP2aQSmrlroYgqAV1PjStIhJXxYuTgUIfkEk7zTLjmIjLmU5q+fbD1NnOJA==
+  dependencies:
+    performance-now "^2.1.0"
 
 react-dom@latest:
   version "16.12.0"
