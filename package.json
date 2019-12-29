@@ -87,8 +87,8 @@
   "dependencies": {
     "@accessible/visually-hidden": "^1.0.5",
     "@react-hook/merged-ref": "^1.0.8",
-    "@react-hook/mouse-position": "^3.0.1",
-    "@react-hook/passive-layout-effect": "^1.0.2"
+    "@react-hook/passive-layout-effect": "^1.0.2",
+    "raf": "^3.4.1"
   },
   "peerDependencies": {
     "prop-types": ">=15.6",

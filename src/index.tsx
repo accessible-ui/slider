@@ -1,8 +1,8 @@
 import React, {cloneElement, useState, useMemo, useContext, useRef} from 'react'
 import VisuallyHidden from '@accessible/visually-hidden'
-import useMousePosition from '@react-hook/mouse-position'
 import useMergedRef from '@react-hook/merged-ref'
 import useLayoutEffect from '@react-hook/passive-layout-effect'
+import raf from 'raf'
 
 const __DEV__ =
   typeof process !== 'undefined' && process.env.NODE_ENV !== 'production'
@@ -133,19 +133,23 @@ export interface ThumbProps {
 }
 
 export const Thumb: React.FC<ThumbProps> = ({children}) => {
-  const {value, max} = useSlider()
+  const progress = useProgress()
   const props = children.props
-
   return cloneElement(children, {
     style: Object.assign(
       {
         pointerEvents: 'none',
         position: 'absolute',
-        left: `${Math.round((value / max) * 100)}%`,
+        left: `${Math.round(progress * 100)}%`,
       },
       props.style
     ),
   })
+}
+
+export const useProgress = (): number => {
+  const {value, max} = useSlider()
+  return value / max
 }
 
 export interface TrackProps {
@@ -169,18 +173,85 @@ export const Track: React.FC<TrackProps> = ({children}) => {
   })
 }
 
+type MouseState = {
+  x?: number
+  y?: number
+  elementWidth?: number
+  elementHeight?: number
+  isDown: boolean
+}
+
 export const useTrack = () => {
   const {set, max, orientation, inputRef} = useSlider()
-  const [mouse, mouseRef] = useMousePosition(0, 0, Infinity)
+  const mouseRef = useRef<HTMLElement | null>(null)
+  const [mouse, setMouse] = useState<MouseState>({isDown: false})
   const prevIsDown = useRef<boolean>(mouse.isDown)
+
+  useLayoutEffect(() => {
+    const current = mouseRef.current
+    if (current) {
+      const position = (e: MouseEvent | TouchEvent) => {
+        const rect = current.getBoundingClientRect()
+        let pageX, pageY
+
+        if ('changedTouches' in e) {
+          pageX = e.changedTouches[0].pageX
+          pageY = e.changedTouches[0].pageY
+        } else {
+          pageX = e.pageX
+          pageY = e.pageY
+        }
+
+        return {
+          x: pageX - rect.left - (window.pageXOffset || window.scrollX),
+          y: pageY - rect.top - (window.pageYOffset || window.scrollY),
+          elementWidth: rect.width,
+          elementHeight: rect.height,
+          isDown: true,
+        }
+      }
+
+      const onDown = (e: MouseEvent | TouchEvent) =>
+        setMouse(prev => (prev.isDown ? prev : position(e)))
+
+      const onUp = () =>
+        setMouse(prev => (!prev.isDown ? prev : {isDown: false}))
+
+      let tick
+      const onMove = (e: MouseEvent | TouchEvent) => {
+        if (tick) return
+        tick = raf(() => {
+          setMouse(prev => (!prev.isDown ? prev : position(e)))
+          tick = void 0
+        })
+      }
+
+      current.addEventListener('mousedown', onDown)
+      window.addEventListener('mouseup', onUp)
+      current.addEventListener('touchstart', onDown)
+      window.addEventListener('touchend', onUp)
+      window.addEventListener('mousemove', onMove)
+      window.addEventListener('touchmove', onMove)
+
+      return () => {
+        current.removeEventListener('mousedown', onDown)
+        window.removeEventListener('mouseup', onUp)
+        current.removeEventListener('touchstart', onDown)
+        window.removeEventListener('touchend', onUp)
+        window.removeEventListener('mousemove', onMove)
+        window.removeEventListener('touchmove', onMove)
+        tick && raf.cancel(tick)
+      }
+    }
+  }, [mouseRef.current])
 
   useLayoutEffect(() => {
     if (
       mouse.isDown &&
-      mouse.x !== null &&
-      mouse.y !== null &&
-      mouse.elementWidth !== null &&
-      mouse.elementHeight !== null
+      mouse.x !== void 0 &&
+      mouse.y !== void 0 &&
+      mouse.elementWidth !== void 0 &&
+      mouse.elementHeight !== void 0
     )
       set(
         (orientation === 'horizontal'
