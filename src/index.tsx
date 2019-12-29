@@ -250,7 +250,6 @@ export const useTrack = () => {
   }, [mouseRef.current])
 
   useLayoutEffect(() => {
-    console.log('wtf?', orientation)
     if (
       mouse.isDown &&
       mouse.x !== void 0 &&
