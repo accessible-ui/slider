@@ -1,7 +1,7 @@
 <hr>
 <div align="center">
   <h1 align="center">
-    @accessible/slider
+    &lt;Slider&gt;
   </h1>
 </div>
 
