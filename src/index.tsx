@@ -26,6 +26,7 @@ export const SliderContext: React.Context<SliderContextValue> = React.createCont
   ),
   useSlider = () => useContext<SliderContextValue>(SliderContext),
   useValue = () => useSlider().value,
+  useOrientation = () => useSlider().orientation,
   useFocused = () => useSlider().focused,
   useControls = () => {
     const {incr, decr, set} = useSlider()
@@ -133,6 +134,7 @@ export interface ThumbProps {
 }
 
 export const Thumb: React.FC<ThumbProps> = ({children}) => {
+  const orientation = useOrientation()
   const progress = useProgress()
   const props = children.props
   return cloneElement(children, {
@@ -140,7 +142,7 @@ export const Thumb: React.FC<ThumbProps> = ({children}) => {
       {
         pointerEvents: 'none',
         position: 'absolute',
-        left: `${Math.round(progress * 100)}%`,
+        [orientation === 'horizontal' ? 'left' : 'top']: `${Math.round(progress * 100)}%`,
       },
       props.style
     ),
@@ -246,6 +248,7 @@ export const useTrack = () => {
   }, [mouseRef.current])
 
   useLayoutEffect(() => {
+    console.log('wtf?', orientation)
     if (
       mouse.isDown &&
       mouse.x !== void 0 &&
@@ -261,7 +264,7 @@ export const useTrack = () => {
 
     if (prevIsDown.current && !mouse.isDown) inputRef.current?.focus()
     prevIsDown.current = mouse.isDown
-  }, [mouse])
+  }, [mouse, orientation])
 
   return mouseRef
 }
