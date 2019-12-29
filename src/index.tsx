@@ -1,4 +1,11 @@
-import React, {cloneElement, useState, useMemo, useContext, useRef} from 'react'
+import React, {
+  cloneElement,
+  useEffect,
+  useState,
+  useMemo,
+  useContext,
+  useRef,
+} from 'react'
 import VisuallyHidden from '@accessible/visually-hidden'
 import useMergedRef from '@react-hook/merged-ref'
 import useLayoutEffect from '@react-hook/passive-layout-effect'
@@ -16,6 +23,7 @@ export interface SliderContextValue {
   max: number
   step: number
   focused: boolean
+  disabled: boolean
   orientation: 'horizontal' | 'vertical'
   inputRef: React.MutableRefObject<HTMLInputElement | null>
 }
@@ -28,6 +36,7 @@ export const SliderContext: React.Context<SliderContextValue> = React.createCont
   useValue = () => useSlider().value,
   useOrientation = () => useSlider().orientation,
   useFocused = () => useSlider().focused,
+  useDisabled = () => useSlider().disabled,
   useControls = () => {
     const {incr, decr, set} = useSlider()
     return {incr, decr, set}
@@ -39,8 +48,9 @@ export interface SliderProps {
   step?: number
   value?: number
   defaultValue?: number
+  disabled?: boolean
   orientation?: 'horizontal' | 'vertical'
-  onChange?: (event: React.ChangeEvent) => any
+  onChange?: (value?: number) => any
   onFocus?: (event: React.FocusEvent) => any
   onBlur?: (event: React.FocusEvent) => any
   children?:
@@ -61,6 +71,7 @@ export const Slider: React.FC<SliderProps> = React.forwardRef<
       step = 1,
       defaultValue = 50,
       value: controlledValue,
+      disabled = false,
       orientation = 'horizontal',
       onChange,
       onFocus,
@@ -74,24 +85,34 @@ export const Slider: React.FC<SliderProps> = React.forwardRef<
     const [focused, setFocused] = useState<boolean>(false)
     const inputRef = useRef<HTMLInputElement | null>(null)
     const value = controlledValue === void 0 ? valueState : controlledValue
+    const prevValue = useRef<number>(value)
     const context = useMemo(
       () => ({
         value,
-        incr: (by = step) => setValue(current => Math.min(current + by, max)),
-        decr: (by = step) => setValue(current => Math.max(current - by, min)),
-        set: (next: number) => setValue(Math.max(Math.min(next, max), min)),
+        incr: (by = step) =>
+          !disabled && setValue(current => Math.min(current + by, max)),
+        decr: (by = step) =>
+          !disabled && setValue(current => Math.max(current - by, min)),
+        set: (next: number) =>
+          !disabled && setValue(Math.max(Math.min(next, max), min)),
         focused,
+        disabled,
         orientation,
         min,
         max,
         step,
         inputRef,
       }),
-      [step, value, focused, orientation, min, max, step, inputRef]
+      [step, value, focused, disabled, orientation, min, max, step, inputRef]
     )
     // @ts-ignore
     const realChildren =
       typeof children === 'function' ? children(context) : children
+
+    useEffect(() => {
+      prevValue.current !== value && onChange?.(value)
+      prevValue.current = value
+    }, [value])
 
     return (
       <SliderContext.Provider value={context}>
@@ -101,11 +122,8 @@ export const Slider: React.FC<SliderProps> = React.forwardRef<
             value={value}
             min={min}
             max={max}
-            ref={useMergedRef(ref, inputRef)}
-            onChange={e => {
-              onChange?.(e)
-              setValue(Number(e.target.value))
-            }}
+            disabled={disabled}
+            onChange={e => setValue(Number(e.target.value))}
             onFocus={e => {
               onFocus?.(e)
               setFocused(true)
@@ -114,6 +132,7 @@ export const Slider: React.FC<SliderProps> = React.forwardRef<
               onBlur?.(e)
               setFocused(false)
             }}
+            ref={useMergedRef(ref, inputRef)}
             {...props}
           />
         </VisuallyHidden>
