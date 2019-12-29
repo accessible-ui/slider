@@ -142,7 +142,9 @@ export const Thumb: React.FC<ThumbProps> = ({children}) => {
       {
         pointerEvents: 'none',
         position: 'absolute',
-        [orientation === 'horizontal' ? 'left' : 'top']: `${Math.round(progress * 100)}%`,
+        [orientation === 'horizontal' ? 'left' : 'bottom']: `${Math.round(
+          progress * 100
+        )}%`,
       },
       props.style
     ),
@@ -206,7 +208,7 @@ export const useTrack = () => {
 
         return {
           x: pageX - rect.left - (window.pageXOffset || window.scrollX),
-          y: pageY - rect.top - (window.pageYOffset || window.scrollY),
+          y: rect.bottom - (pageY - (window.pageYOffset || window.scrollY)),
           elementWidth: rect.width,
           elementHeight: rect.height,
           isDown: true,
