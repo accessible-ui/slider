@@ -155,6 +155,8 @@ exports[`<Slider> should round based upon the step: value=40 1`] = `
 </DocumentFragment>
 `;
 
+exports[`<Slider> should throw if min > max 1`] = `"[AccessibleSlider] min value must be less than the max value"`;
+
 exports[`<Slider> should throw if value < min 1`] = `"[AccessibleSlider] 50 is less than the min allowed: 51"`;
 
 exports[`<Slider> should throw if value > max 1`] = `"[AccessibleSlider] 50 is greater than the max allowed: 49"`;

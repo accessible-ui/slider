@@ -92,6 +92,11 @@ export const Slider: React.FC<SliderProps> = React.forwardRef<
     )
 
     if (__DEV__) {
+      if (min > max) {
+        throw new Error(
+          `[AccessibleSlider] min value must be less than the max value`
+        )
+      }
       if (value > max) {
         throw new Error(
           `[AccessibleSlider] ${value} is greater than the max allowed: ${max}`

@@ -112,6 +112,16 @@ describe(`<Slider>`, () => {
     ).toThrowErrorMatchingSnapshot()
   })
 
+  it(`should throw if min > max`, () => {
+    expect(() =>
+      render(
+        <Slider min={51} max={50} defaultValue={50} disabled>
+          <div />
+        </Slider>
+      )
+    ).toThrowErrorMatchingSnapshot()
+  })
+
   it(`should override w/ child aria-hidden`, () => {
     expect(
       render(
