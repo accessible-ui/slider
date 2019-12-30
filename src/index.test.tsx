@@ -82,6 +82,16 @@ describe(`<Slider>`, () => {
     ).toMatchSnapshot('value=2')
   })
 
+  it(`should round based upon the step`, () => {
+    expect(
+      render(
+        <Slider step={5} defaultValue={42} disabled>
+          <div />
+        </Slider>
+      ).asFragment()
+    ).toMatchSnapshot('value=40')
+  })
+
   it(`should override w/ child aria-hidden`, () => {
     expect(
       render(
@@ -540,6 +550,28 @@ describe('useControls()', () => {
     expect((result.getByTestId('slider') as HTMLInputElement).value).toBe('52')
     fireEvent.click(result.getByTestId('decr'))
     expect((result.getByTestId('slider') as HTMLInputElement).value).toBe('49')
+  })
+
+  it('should round value based upon step', () => {
+    const Component = () => {
+      const {incr, decr} = useControls()
+      return (
+        <>
+          <button data-testid="incr" onClick={() => incr(2)} />
+          <button data-testid="decr" onClick={() => decr(3)} />
+        </>
+      )
+    }
+    const result = render(
+      <Slider step={5} data-testid="slider">
+        <Component />
+      </Slider>
+    )
+
+    fireEvent.click(result.getByTestId('incr'))
+    expect((result.getByTestId('slider') as HTMLInputElement).value).toBe('50')
+    fireEvent.click(result.getByTestId('decr'))
+    expect((result.getByTestId('slider') as HTMLInputElement).value).toBe('45')
   })
 
   it('should not change value when disabled', () => {

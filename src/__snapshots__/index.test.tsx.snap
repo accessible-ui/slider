@@ -138,6 +138,23 @@ Object {
 }
 `;
 
+exports[`<Slider> should round based upon the step: value=40 1`] = `
+<DocumentFragment>
+  <input
+    disabled=""
+    max="100"
+    min="0"
+    step="5"
+    style="border: 0px; height: 1px; width: 1px; margin: -1px; padding: 0px; overflow: hidden; position: absolute;"
+    type="range"
+    value="40"
+  />
+  <div
+    aria-hidden="true"
+  />
+</DocumentFragment>
+`;
+
 exports[`<Thumb> should apply custom styles: transform 1`] = `
 <DocumentFragment>
   <input

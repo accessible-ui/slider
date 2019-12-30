@@ -59,6 +59,8 @@ export interface SliderProps {
   [property: string]: any
 }
 
+const round = (value, step) => Math.round(value / step) * step
+
 // @ts-ignore
 export const Slider: React.FC<SliderProps> = React.forwardRef<
   JSX.Element | React.ReactElement,
@@ -84,17 +86,23 @@ export const Slider: React.FC<SliderProps> = React.forwardRef<
     const [valueState, setValue] = useState<number>(defaultValue)
     const [focused, setFocused] = useState<boolean>(false)
     const inputRef = useRef<HTMLInputElement | null>(null)
-    const value = controlledValue === void 0 ? valueState : controlledValue
+    const value = round(
+      controlledValue === void 0 ? valueState : controlledValue,
+      step
+    )
     const prevValue = useRef<number>(value)
     const context = useMemo(
       () => ({
         value,
         incr: (by = step) =>
-          !disabled && setValue(current => Math.min(current + by, max)),
+          !disabled &&
+          setValue(current => Math.min(round(current + by, step), max)),
         decr: (by = step) =>
-          !disabled && setValue(current => Math.max(current - by, min)),
+          !disabled &&
+          setValue(current => Math.max(round(current - by, step), min)),
         set: (next: number) =>
-          !disabled && setValue(Math.max(Math.min(next, max), min)),
+          !disabled &&
+          setValue(Math.max(Math.min(round(next, step), max), min)),
         focused,
         disabled,
         orientation,
