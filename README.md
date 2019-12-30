@@ -32,8 +32,8 @@
 An accessible and versatile slider component for React. These components are touchable and
 keyboard navigable.
 
-This library contains components for
-single-thumb sliders, though you could feasibly fashion a two-thumb slider from what's here.
+This library contains components for single-thumb sliders out of the box, though you could feasibly fashion a
+dual-thumb slider from what's here.
 
 ## Quick Start
 

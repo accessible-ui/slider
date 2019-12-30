@@ -122,6 +122,7 @@ export const Slider: React.FC<SliderProps> = React.forwardRef<
             value={value}
             min={min}
             max={max}
+            step={step}
             disabled={disabled}
             onChange={e => setValue(Number(e.target.value))}
             onFocus={e => {
@@ -215,19 +216,19 @@ const useTrack = () => {
     if (current) {
       const position = (e: MouseEvent | TouchEvent) => {
         const rect = current.getBoundingClientRect()
-        let pageX, pageY
+        let clientX, clientY
 
         if ('changedTouches' in e) {
-          pageX = e.changedTouches[0].pageX
-          pageY = e.changedTouches[0].pageY
+          clientX = e.changedTouches[0].clientX
+          clientY = e.changedTouches[0].clientY
         } else {
-          pageX = e.pageX
-          pageY = e.pageY
+          clientX = e.clientX
+          clientY = e.clientY
         }
 
         return {
-          x: pageX - rect.left - (window.pageXOffset || window.scrollX),
-          y: rect.bottom - (pageY - (window.pageYOffset || window.scrollY)),
+          x: clientX - rect.left,
+          y: rect.bottom - clientY,
           elementWidth: rect.width,
           elementHeight: rect.height,
           isDown: true,
@@ -237,32 +238,37 @@ const useTrack = () => {
       const onDown = (e: MouseEvent | TouchEvent) =>
         setMouse(prev => (prev.isDown ? prev : position(e)))
 
-      const onUp = () =>
-        setMouse(prev => (!prev.isDown ? prev : {isDown: false}))
+      const onUp = (e: MouseEvent | TouchEvent) =>
+        setMouse(prev =>
+          !prev.isDown ? prev : Object.assign(position(e), {isDown: false})
+        )
 
-      let tick
+      let tick, ev
       const onMove = (e: MouseEvent | TouchEvent) => {
+        ev = e // always use latest event despite ticks
         if (tick) return
         tick = raf(() => {
-          setMouse(prev => (!prev.isDown ? prev : position(e)))
+          setMouse(prev => (!prev.isDown ? prev : position(ev)))
           tick = void 0
         })
       }
 
+      const docEl = window
       current.addEventListener('mousedown', onDown)
-      window.addEventListener('mouseup', onUp)
+      docEl.addEventListener('mouseup', onUp)
       current.addEventListener('touchstart', onDown)
-      window.addEventListener('touchend', onUp)
-      window.addEventListener('mousemove', onMove)
-      window.addEventListener('touchmove', onMove)
+      docEl.addEventListener('touchend', onUp)
+      docEl.addEventListener('mousemove', onMove)
+      docEl.addEventListener('touchmove', onMove)
 
       return () => {
         current.removeEventListener('mousedown', onDown)
-        window.removeEventListener('mouseup', onUp)
+        docEl.removeEventListener('mouseup', onUp)
         current.removeEventListener('touchstart', onDown)
-        window.removeEventListener('touchend', onUp)
-        window.removeEventListener('mousemove', onMove)
-        window.removeEventListener('touchmove', onMove)
+        docEl.removeEventListener('touchend', onUp)
+        docEl.removeEventListener('mousemove', onMove)
+        docEl.removeEventListener('touchmove', onMove)
+        /* istanbul ignore next */
         tick && raf.cancel(tick)
       }
     }
@@ -270,7 +276,6 @@ const useTrack = () => {
 
   useLayoutEffect(() => {
     if (
-      mouse.isDown &&
       mouse.x !== void 0 &&
       mouse.y !== void 0 &&
       mouse.elementWidth !== void 0 &&

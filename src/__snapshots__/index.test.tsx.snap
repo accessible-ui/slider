@@ -1,0 +1,665 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Slider> should add 'max' attribute to input: max=50 1`] = `
+<DocumentFragment>
+  <input
+    max="50"
+    min="0"
+    step="1"
+    style="border: 0px; height: 1px; width: 1px; margin: -1px; padding: 0px; overflow: hidden; position: absolute;"
+    type="range"
+    value="50"
+  />
+  <div
+    aria-hidden="true"
+  />
+</DocumentFragment>
+`;
+
+exports[`<Slider> should add 'min' attribute to input: min=20 1`] = `
+<DocumentFragment>
+  <input
+    max="100"
+    min="20"
+    step="1"
+    style="border: 0px; height: 1px; width: 1px; margin: -1px; padding: 0px; overflow: hidden; position: absolute;"
+    type="range"
+    value="50"
+  />
+  <div
+    aria-hidden="true"
+  />
+</DocumentFragment>
+`;
+
+exports[`<Slider> should add 'step' attribute to input: step=2 1`] = `
+<DocumentFragment>
+  <input
+    max="100"
+    min="0"
+    step="2"
+    style="border: 0px; height: 1px; width: 1px; margin: -1px; padding: 0px; overflow: hidden; position: absolute;"
+    type="range"
+    value="50"
+  />
+  <div
+    aria-hidden="true"
+  />
+</DocumentFragment>
+`;
+
+exports[`<Slider> should add disabled attribute to input: disabled="" 1`] = `
+<DocumentFragment>
+  <input
+    disabled=""
+    max="100"
+    min="0"
+    step="1"
+    style="border: 0px; height: 1px; width: 1px; margin: -1px; padding: 0px; overflow: hidden; position: absolute;"
+    type="range"
+    value="50"
+  />
+  <div
+    aria-hidden="true"
+  />
+</DocumentFragment>
+`;
+
+exports[`<Slider> should have controlled value: value=2 1`] = `
+<DocumentFragment>
+  <input
+    max="100"
+    min="0"
+    step="1"
+    style="border: 0px; height: 1px; width: 1px; margin: -1px; padding: 0px; overflow: hidden; position: absolute;"
+    type="range"
+    value="2"
+  />
+  <div
+    aria-hidden="true"
+  />
+</DocumentFragment>
+`;
+
+exports[`<Slider> should have defaultValue: value=2 1`] = `
+<DocumentFragment>
+  <input
+    max="100"
+    min="0"
+    step="1"
+    style="border: 0px; height: 1px; width: 1px; margin: -1px; padding: 0px; overflow: hidden; position: absolute;"
+    type="range"
+    value="2"
+  />
+  <div
+    aria-hidden="true"
+  />
+</DocumentFragment>
+`;
+
+exports[`<Slider> should override w/ child aria-hidden: aria-hidden=false 1`] = `
+<DocumentFragment>
+  <input
+    max="100"
+    min="0"
+    step="1"
+    style="border: 0px; height: 1px; width: 1px; margin: -1px; padding: 0px; overflow: hidden; position: absolute;"
+    type="range"
+    value="50"
+  />
+  <div
+    aria-hidden="false"
+  />
+</DocumentFragment>
+`;
+
+exports[`<Slider> should provide context to function child: context 1`] = `
+Object {
+  "decr": [Function],
+  "disabled": false,
+  "focused": false,
+  "incr": [Function],
+  "inputRef": Object {
+    "current": <input
+      max="100"
+      min="0"
+      step="1"
+      style="border: 0px; height: 1px; width: 1px; margin: -1px; padding: 0px; overflow: hidden; position: absolute;"
+      type="range"
+      value="50"
+    />,
+  },
+  "max": 100,
+  "min": 0,
+  "orientation": "horizontal",
+  "set": [Function],
+  "step": 1,
+  "value": 50,
+}
+`;
+
+exports[`<Thumb> should apply custom styles: transform 1`] = `
+<DocumentFragment>
+  <input
+    max="100"
+    min="0"
+    step="1"
+    style="border: 0px; height: 1px; width: 1px; margin: -1px; padding: 0px; overflow: hidden; position: absolute;"
+    type="range"
+    value="50"
+  />
+  <div
+    style="pointer-events: none; position: absolute; left: 50%; transform: translateX(-50%);"
+  />
+</DocumentFragment>
+`;
+
+exports[`<Thumb> should change position w/ orientation: bottom=30% 1`] = `
+<DocumentFragment>
+  <input
+    max="100"
+    min="0"
+    step="1"
+    style="border: 0px; height: 1px; width: 1px; margin: -1px; padding: 0px; overflow: hidden; position: absolute;"
+    type="range"
+    value="30"
+  />
+  <div
+    style="pointer-events: none; position: absolute; bottom: 30%;"
+  />
+</DocumentFragment>
+`;
+
+exports[`<Thumb> should change position w/ orientation: left=20% 1`] = `
+<DocumentFragment>
+  <input
+    max="100"
+    min="0"
+    step="1"
+    style="border: 0px; height: 1px; width: 1px; margin: -1px; padding: 0px; overflow: hidden; position: absolute;"
+    type="range"
+    value="20"
+  />
+  <div
+    style="pointer-events: none; position: absolute; left: 20%;"
+  />
+</DocumentFragment>
+`;
+
+exports[`<Thumb> should update progress when value changes: 20% 1`] = `
+<DocumentFragment>
+  <input
+    max="100"
+    min="0"
+    step="1"
+    style="border: 0px; height: 1px; width: 1px; margin: -1px; padding: 0px; overflow: hidden; position: absolute;"
+    type="range"
+    value="20"
+  />
+  <div
+    style="pointer-events: none; position: absolute; left: 20%;"
+  />
+</DocumentFragment>
+`;
+
+exports[`<Thumb> should update progress when value changes: 30% 1`] = `
+<DocumentFragment>
+  <input
+    max="100"
+    min="0"
+    step="1"
+    style="border: 0px; height: 1px; width: 1px; margin: -1px; padding: 0px; overflow: hidden; position: absolute;"
+    type="range"
+    value="30"
+  />
+  <div
+    style="pointer-events: none; position: absolute; left: 30%;"
+  />
+</DocumentFragment>
+`;
+
+exports[`<Thumb> should update value on change: value=20 1`] = `
+<DocumentFragment>
+  <input
+    data-testid="slider"
+    max="100"
+    min="0"
+    step="1"
+    style="border: 0px; height: 1px; width: 1px; margin: -1px; padding: 0px; overflow: hidden; position: absolute;"
+    type="range"
+    value="20"
+  />
+  <div
+    aria-hidden="true"
+  />
+</DocumentFragment>
+`;
+
+exports[`<Track> should apply custom styles: width=20, height=300 1`] = `
+<DocumentFragment>
+  <input
+    max="100"
+    min="0"
+    step="1"
+    style="border: 0px; height: 1px; width: 1px; margin: -1px; padding: 0px; overflow: hidden; position: absolute;"
+    type="range"
+    value="50"
+  />
+  <div
+    data-testid="track"
+    style="user-select: none; position: relative; width: 20px; height: 300px;"
+  />
+</DocumentFragment>
+`;
+
+exports[`<Track> should change w/ orientation: value=10 1`] = `
+<DocumentFragment>
+  <input
+    max="100"
+    min="0"
+    step="1"
+    style="border: 0px; height: 1px; width: 1px; margin: -1px; padding: 0px; overflow: hidden; position: absolute;"
+    type="range"
+    value="10"
+  />
+  <div
+    data-testid="track"
+    style="user-select: none; position: relative; width: 20px; height: 300px;"
+  />
+</DocumentFragment>
+`;
+
+exports[`<Track> should change w/ orientation: value=20 1`] = `
+<DocumentFragment>
+  <input
+    max="100"
+    min="0"
+    step="1"
+    style="border: 0px; height: 1px; width: 1px; margin: -1px; padding: 0px; overflow: hidden; position: absolute;"
+    type="range"
+    value="20"
+  />
+  <div
+    data-testid="track"
+    style="user-select: none; position: relative; width: 20px; height: 300px;"
+  />
+</DocumentFragment>
+`;
+
+exports[`<Track> should change w/ orientation: value=40 [despite move] 1`] = `
+<DocumentFragment>
+  <input
+    max="100"
+    min="0"
+    step="1"
+    style="border: 0px; height: 1px; width: 1px; margin: -1px; padding: 0px; overflow: hidden; position: absolute;"
+    type="range"
+    value="40"
+  />
+  <div
+    data-testid="track"
+    style="user-select: none; position: relative; width: 20px; height: 300px;"
+  />
+</DocumentFragment>
+`;
+
+exports[`<Track> should change w/ orientation: value=40 1`] = `
+<DocumentFragment>
+  <input
+    max="100"
+    min="0"
+    step="1"
+    style="border: 0px; height: 1px; width: 1px; margin: -1px; padding: 0px; overflow: hidden; position: absolute;"
+    type="range"
+    value="40"
+  />
+  <div
+    data-testid="track"
+    style="user-select: none; position: relative; width: 20px; height: 300px;"
+  />
+</DocumentFragment>
+`;
+
+exports[`<Track> should not respond to down if already down: value=10 [despite down] 1`] = `
+<DocumentFragment>
+  <input
+    max="100"
+    min="0"
+    step="1"
+    style="border: 0px; height: 1px; width: 1px; margin: -1px; padding: 0px; overflow: hidden; position: absolute;"
+    type="range"
+    value="10"
+  />
+  <div
+    data-testid="track"
+    style="user-select: none; position: relative; width: 300px; height: 20px;"
+  />
+</DocumentFragment>
+`;
+
+exports[`<Track> should not respond to down if already down: value=10 1`] = `
+<DocumentFragment>
+  <input
+    max="100"
+    min="0"
+    step="1"
+    style="border: 0px; height: 1px; width: 1px; margin: -1px; padding: 0px; overflow: hidden; position: absolute;"
+    type="range"
+    value="10"
+  />
+  <div
+    data-testid="track"
+    style="user-select: none; position: relative; width: 300px; height: 20px;"
+  />
+</DocumentFragment>
+`;
+
+exports[`<Track> should not respond to mousemove if current tick is unresolved: value=30 1`] = `
+<DocumentFragment>
+  <input
+    max="100"
+    min="0"
+    step="1"
+    style="border: 0px; height: 1px; width: 1px; margin: -1px; padding: 0px; overflow: hidden; position: absolute;"
+    type="range"
+    value="30"
+  />
+  <div
+    data-testid="track"
+    style="user-select: none; position: relative; width: 300px; height: 20px;"
+  />
+</DocumentFragment>
+`;
+
+exports[`<Track> should not respond to mousemove if current tick is unresolved: value=50 [despite move] 1`] = `
+<DocumentFragment>
+  <input
+    max="100"
+    min="0"
+    step="1"
+    style="border: 0px; height: 1px; width: 1px; margin: -1px; padding: 0px; overflow: hidden; position: absolute;"
+    type="range"
+    value="50"
+  />
+  <div
+    data-testid="track"
+    style="user-select: none; position: relative; width: 300px; height: 20px;"
+  />
+</DocumentFragment>
+`;
+
+exports[`<Track> should not respond to mousemove if current tick is unresolved: value=50 1`] = `
+<DocumentFragment>
+  <input
+    max="100"
+    min="0"
+    step="1"
+    style="border: 0px; height: 1px; width: 1px; margin: -1px; padding: 0px; overflow: hidden; position: absolute;"
+    type="range"
+    value="50"
+  />
+  <div
+    data-testid="track"
+    style="user-select: none; position: relative; width: 300px; height: 20px;"
+  />
+</DocumentFragment>
+`;
+
+exports[`<Track> should not respond to up without a preceding down: value=50 [despite up] 1`] = `
+<DocumentFragment>
+  <input
+    max="100"
+    min="0"
+    step="1"
+    style="border: 0px; height: 1px; width: 1px; margin: -1px; padding: 0px; overflow: hidden; position: absolute;"
+    type="range"
+    value="50"
+  />
+  <div
+    data-testid="track"
+    style="user-select: none; position: relative; width: 300px; height: 20px;"
+  />
+</DocumentFragment>
+`;
+
+exports[`<Track> should respond to mouse events: value=10 1`] = `
+<DocumentFragment>
+  <input
+    max="100"
+    min="0"
+    step="1"
+    style="border: 0px; height: 1px; width: 1px; margin: -1px; padding: 0px; overflow: hidden; position: absolute;"
+    type="range"
+    value="10"
+  />
+  <div
+    data-testid="track"
+    style="user-select: none; position: relative; width: 300px; height: 20px;"
+  />
+</DocumentFragment>
+`;
+
+exports[`<Track> should respond to mouse events: value=20 1`] = `
+<DocumentFragment>
+  <input
+    max="100"
+    min="0"
+    step="1"
+    style="border: 0px; height: 1px; width: 1px; margin: -1px; padding: 0px; overflow: hidden; position: absolute;"
+    type="range"
+    value="20"
+  />
+  <div
+    data-testid="track"
+    style="user-select: none; position: relative; width: 300px; height: 20px;"
+  />
+</DocumentFragment>
+`;
+
+exports[`<Track> should respond to mouse events: value=40 [despite move] 1`] = `
+<DocumentFragment>
+  <input
+    max="100"
+    min="0"
+    step="1"
+    style="border: 0px; height: 1px; width: 1px; margin: -1px; padding: 0px; overflow: hidden; position: absolute;"
+    type="range"
+    value="40"
+  />
+  <div
+    data-testid="track"
+    style="user-select: none; position: relative; width: 300px; height: 20px;"
+  />
+</DocumentFragment>
+`;
+
+exports[`<Track> should respond to mouse events: value=40 1`] = `
+<DocumentFragment>
+  <input
+    max="100"
+    min="0"
+    step="1"
+    style="border: 0px; height: 1px; width: 1px; margin: -1px; padding: 0px; overflow: hidden; position: absolute;"
+    type="range"
+    value="40"
+  />
+  <div
+    data-testid="track"
+    style="user-select: none; position: relative; width: 300px; height: 20px;"
+  />
+</DocumentFragment>
+`;
+
+exports[`<Track> should respond to touch events: value=10 1`] = `
+<DocumentFragment>
+  <input
+    max="100"
+    min="0"
+    step="1"
+    style="border: 0px; height: 1px; width: 1px; margin: -1px; padding: 0px; overflow: hidden; position: absolute;"
+    type="range"
+    value="10"
+  />
+  <div
+    data-testid="track"
+    style="user-select: none; position: relative; width: 300px; height: 20px;"
+  />
+</DocumentFragment>
+`;
+
+exports[`<Track> should respond to touch events: value=20 1`] = `
+<DocumentFragment>
+  <input
+    max="100"
+    min="0"
+    step="1"
+    style="border: 0px; height: 1px; width: 1px; margin: -1px; padding: 0px; overflow: hidden; position: absolute;"
+    type="range"
+    value="20"
+  />
+  <div
+    data-testid="track"
+    style="user-select: none; position: relative; width: 300px; height: 20px;"
+  />
+</DocumentFragment>
+`;
+
+exports[`<Track> should respond to touch events: value=40 [despite move] 1`] = `
+<DocumentFragment>
+  <input
+    max="100"
+    min="0"
+    step="1"
+    style="border: 0px; height: 1px; width: 1px; margin: -1px; padding: 0px; overflow: hidden; position: absolute;"
+    type="range"
+    value="40"
+  />
+  <div
+    data-testid="track"
+    style="user-select: none; position: relative; width: 300px; height: 20px;"
+  />
+</DocumentFragment>
+`;
+
+exports[`<Track> should respond to touch events: value=40 1`] = `
+<DocumentFragment>
+  <input
+    max="100"
+    min="0"
+    step="1"
+    style="border: 0px; height: 1px; width: 1px; margin: -1px; padding: 0px; overflow: hidden; position: absolute;"
+    type="range"
+    value="40"
+  />
+  <div
+    data-testid="track"
+    style="user-select: none; position: relative; width: 300px; height: 20px;"
+  />
+</DocumentFragment>
+`;
+
+exports[`useDisabled() should be \`true\` when disabled, \`false\` when enabled: false 1`] = `
+<DocumentFragment>
+  <input
+    data-testid="slider"
+    max="100"
+    min="0"
+    step="1"
+    style="border: 0px; height: 1px; width: 1px; margin: -1px; padding: 0px; overflow: hidden; position: absolute;"
+    type="range"
+    value="50"
+  />
+  false
+</DocumentFragment>
+`;
+
+exports[`useDisabled() should be \`true\` when disabled, \`false\` when enabled: true 1`] = `
+<DocumentFragment>
+  <input
+    data-testid="slider"
+    disabled=""
+    max="100"
+    min="0"
+    step="1"
+    style="border: 0px; height: 1px; width: 1px; margin: -1px; padding: 0px; overflow: hidden; position: absolute;"
+    type="range"
+    value="50"
+  />
+  true
+</DocumentFragment>
+`;
+
+exports[`useFocused() should be \`true\` when focused, \`false\` when blurred: false 1`] = `
+<DocumentFragment>
+  <input
+    data-testid="slider"
+    max="100"
+    min="0"
+    step="1"
+    style="border: 0px; height: 1px; width: 1px; margin: -1px; padding: 0px; overflow: hidden; position: absolute;"
+    type="range"
+    value="50"
+  />
+  false
+</DocumentFragment>
+`;
+
+exports[`useFocused() should be \`true\` when focused, \`false\` when blurred: false 2`] = `
+<DocumentFragment>
+  <input
+    data-testid="slider"
+    max="100"
+    min="0"
+    step="1"
+    style="border: 0px; height: 1px; width: 1px; margin: -1px; padding: 0px; overflow: hidden; position: absolute;"
+    type="range"
+    value="50"
+  />
+  false
+</DocumentFragment>
+`;
+
+exports[`useFocused() should be \`true\` when focused, \`false\` when blurred: true 1`] = `
+<DocumentFragment>
+  <input
+    data-testid="slider"
+    max="100"
+    min="0"
+    step="1"
+    style="border: 0px; height: 1px; width: 1px; margin: -1px; padding: 0px; overflow: hidden; position: absolute;"
+    type="range"
+    value="50"
+  />
+  true
+</DocumentFragment>
+`;
+
+exports[`useOrientation() should provide current orientation: vertical 1`] = `
+<DocumentFragment>
+  <input
+    data-testid="slider"
+    max="100"
+    min="0"
+    step="1"
+    style="border: 0px; height: 1px; width: 1px; margin: -1px; padding: 0px; overflow: hidden; position: absolute;"
+    type="range"
+    value="50"
+  />
+  vertical
+</DocumentFragment>
+`;
+
+exports[`useValue() should provide current value: 30 1`] = `
+<DocumentFragment>
+  <input
+    data-testid="slider"
+    max="100"
+    min="0"
+    step="1"
+    style="border: 0px; height: 1px; width: 1px; margin: -1px; padding: 0px; overflow: hidden; position: absolute;"
+    type="range"
+    value="30"
+  />
+  30
+</DocumentFragment>
+`;
