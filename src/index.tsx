@@ -90,6 +90,20 @@ export const Slider: React.FC<SliderProps> = React.forwardRef<
       controlledValue === void 0 ? valueState : controlledValue,
       step
     )
+
+    if (__DEV__) {
+      if (value > max) {
+        throw new Error(
+          `[AccessibleSlider] ${value} is greater than the max allowed: ${max}`
+        )
+      }
+      if (value < min) {
+        throw new Error(
+          `[AccessibleSlider] ${value} is less than the min allowed: ${min}`
+        )
+      }
+    }
+
     const prevValue = useRef<number>(value)
     const context = useMemo(
       () => ({
@@ -180,8 +194,8 @@ export const Thumb: React.FC<ThumbProps> = ({children}) => {
 }
 
 export const useProgress = (): number => {
-  const {value, max} = useSlider()
-  return value / max
+  const {value, max, min} = useSlider()
+  return (value - min) / (max - min)
 }
 
 export interface TrackProps {
@@ -214,7 +228,7 @@ type MouseState = {
 }
 
 const useTrack = () => {
-  const {set, max, orientation, inputRef} = useSlider()
+  const {set, max, min, orientation, inputRef} = useSlider()
   const mouseRef = useRef<HTMLElement | null>(null)
   const [mouse, setMouse] = useState<MouseState>({isDown: false})
   const prevIsDown = useRef<boolean>(mouse.isDown)
@@ -288,12 +302,13 @@ const useTrack = () => {
       mouse.y !== void 0 &&
       mouse.elementWidth !== void 0 &&
       mouse.elementHeight !== void 0
-    )
-      set(
-        (orientation === 'horizontal'
+    ) {
+      const progress =
+        orientation === 'horizontal'
           ? mouse.x / mouse.elementWidth
-          : mouse.y / mouse.elementHeight) * max
-      )
+          : mouse.y / mouse.elementHeight
+      set(min + progress * (max - min))
+    }
 
     if (prevIsDown.current && !mouse.isDown) inputRef.current?.focus()
     prevIsDown.current = mouse.isDown

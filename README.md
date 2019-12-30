@@ -91,7 +91,7 @@ is your responsibility to style it.
 ### `<Thumb>`
 
 This component adds styles to its child that update the child's position within a track based upon the
-progress of the slider i.e. `value / max`.
+progress of the slider i.e. `(value - min) / (max - min)`.
 
 #### Props
 
@@ -127,7 +127,7 @@ A hook that returns the slider's current `value`
 
 ### `useProgress()`
 
-A hook that returns the value of `value / max`
+A hook that returns the value of `(value - min) / (max - min)`
 
 ### `useOrientation()`
 

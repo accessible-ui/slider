@@ -92,6 +92,26 @@ describe(`<Slider>`, () => {
     ).toMatchSnapshot('value=40')
   })
 
+  it(`should throw if value < min`, () => {
+    expect(() =>
+      render(
+        <Slider min={51} disabled>
+          <div />
+        </Slider>
+      )
+    ).toThrowErrorMatchingSnapshot()
+  })
+
+  it(`should throw if value > max`, () => {
+    expect(() =>
+      render(
+        <Slider max={49} disabled>
+          <div />
+        </Slider>
+      )
+    ).toThrowErrorMatchingSnapshot()
+  })
+
   it(`should override w/ child aria-hidden`, () => {
     expect(
       render(
