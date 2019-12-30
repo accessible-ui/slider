@@ -204,7 +204,7 @@ type MouseState = {
   isDown: boolean
 }
 
-export const useTrack = () => {
+const useTrack = () => {
   const {set, max, orientation, inputRef} = useSlider()
   const mouseRef = useRef<HTMLElement | null>(null)
   const [mouse, setMouse] = useState<MouseState>({isDown: false})
