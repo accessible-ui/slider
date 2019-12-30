@@ -37,7 +37,7 @@ dual-thumb slider from what's here.
 
 ## Quick Start
 
-[Check out the example on CodeSandbox](https://codesandbox.io/s/accessibleslider-example-mns9o)
+[Check out the example on CodeSandbox](https://codesandbox.io/s/accessibleslider-example-vi94o)
 
 ```jsx harmony
 import {Slider, Track, Thumb} from '@accessible/slider'
