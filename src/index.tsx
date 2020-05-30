@@ -85,8 +85,6 @@ export const Slider: React.FC<SliderProps> = React.forwardRef<
     const [valueState, setValue] = React.useState<number>(defaultValue)
     const [focused, setFocused] = React.useState<boolean>(false)
     const inputRef = React.useRef<HTMLInputElement | null>(null)
-    const storedOnChange = React.useRef(onChange)
-    storedOnChange.current = onChange
     const value = round(
       controlledValue === void 0 ? valueState : controlledValue,
       step
@@ -113,7 +111,6 @@ export const Slider: React.FC<SliderProps> = React.forwardRef<
       }
     }
 
-    const prevValue = React.useRef<number>(value)
     const context = React.useMemo(
       () => ({
         value,
@@ -140,11 +137,6 @@ export const Slider: React.FC<SliderProps> = React.forwardRef<
     const realChildren =
       typeof children === 'function' ? children(context) : children
 
-    React.useEffect(() => {
-      prevValue.current !== valueState && storedOnChange.current?.(valueState)
-      prevValue.current = valueState
-    }, [valueState])
-
     return (
       <SliderContext.Provider value={context}>
         <VisuallyHidden>
@@ -155,14 +147,18 @@ export const Slider: React.FC<SliderProps> = React.forwardRef<
             max={max}
             step={step}
             disabled={disabled}
-            onChange={(e) => setValue(Number(e.target.value))}
+            onChange={(e) => {
+              const nextValue = Number(e.target.value)
+              setValue(nextValue)
+              onChange?.(nextValue)
+            }}
             onFocus={(e) => {
-              onFocus?.(e)
               setFocused(true)
+              onFocus?.(e)
             }}
             onBlur={(e) => {
-              onBlur?.(e)
               setFocused(false)
+              onBlur?.(e)
             }}
             ref={useMergedRef(ref, inputRef)}
             {...props}
