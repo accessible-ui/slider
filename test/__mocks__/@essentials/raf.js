@@ -5,6 +5,5 @@ export let step = (...args) => mock._.step(...args)
 export const reset = () => {
   mock._ = createMockRaf()
 }
-const raf = cb => mock._.raf(cb)
-raf.cancel = cancel
-export default raf
+export const raf = (cb) => mock._.raf(cb)
+export const caf = cancel

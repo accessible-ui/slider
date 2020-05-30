@@ -1,18 +1,8 @@
-import React, {
-  cloneElement,
-  useEffect,
-  useState,
-  useMemo,
-  useContext,
-  useRef,
-} from 'react'
+import * as React from 'react'
 import VisuallyHidden from '@accessible/visually-hidden'
 import useMergedRef from '@react-hook/merged-ref'
 import useLayoutEffect from '@react-hook/passive-layout-effect'
-import raf from 'raf'
-
-const __DEV__ =
-  typeof process !== 'undefined' && process.env.NODE_ENV !== 'production'
+import {raf, caf} from '@essentials/raf'
 
 export interface SliderContextValue {
   incr: (by?: number) => void
@@ -28,11 +18,21 @@ export interface SliderContextValue {
   inputRef: React.MutableRefObject<HTMLInputElement | null>
 }
 
-// @ts-ignore
-export const SliderContext: React.Context<SliderContextValue> = React.createContext(
-    {}
-  ),
-  useSlider = () => useContext<SliderContextValue>(SliderContext),
+const noop = () => {}
+export const SliderContext = React.createContext<SliderContextValue>({
+    incr: noop,
+    decr: noop,
+    set: noop,
+    value: 0,
+    min: 0,
+    max: 0,
+    step: 0,
+    focused: false,
+    disabled: false,
+    orientation: 'horizontal',
+    inputRef: {current: null},
+  }),
+  useSlider = () => React.useContext<SliderContextValue>(SliderContext),
   useValue = () => useSlider().value,
   useOrientation = () => useSlider().orientation,
   useFocused = () => useSlider().focused,
@@ -59,9 +59,8 @@ export interface SliderProps {
   [property: string]: any
 }
 
-const round = (value, step) => Math.round(value / step) * step
+const round = (value: number, step: number) => Math.round(value / step) * step
 
-// @ts-ignore
 export const Slider: React.FC<SliderProps> = React.forwardRef<
   JSX.Element | React.ReactElement,
   SliderProps
@@ -83,15 +82,20 @@ export const Slider: React.FC<SliderProps> = React.forwardRef<
     },
     ref: any
   ) => {
-    const [valueState, setValue] = useState<number>(defaultValue)
-    const [focused, setFocused] = useState<boolean>(false)
-    const inputRef = useRef<HTMLInputElement | null>(null)
+    const [valueState, setValue] = React.useState<number>(defaultValue)
+    const [focused, setFocused] = React.useState<boolean>(false)
+    const inputRef = React.useRef<HTMLInputElement | null>(null)
+    const storedOnChange = React.useRef(onChange)
+    storedOnChange.current = onChange
     const value = round(
       controlledValue === void 0 ? valueState : controlledValue,
       step
     )
 
-    if (__DEV__) {
+    if (
+      typeof process !== 'undefined' &&
+      process.env.NODE_ENV !== 'production'
+    ) {
       if (min > max) {
         throw new Error(
           `[AccessibleSlider] min value must be less than the max value`
@@ -109,16 +113,16 @@ export const Slider: React.FC<SliderProps> = React.forwardRef<
       }
     }
 
-    const prevValue = useRef<number>(value)
-    const context = useMemo(
+    const prevValue = React.useRef<number>(value)
+    const context = React.useMemo(
       () => ({
         value,
         incr: (by = step) =>
           !disabled &&
-          setValue(current => Math.min(round(current + by, step), max)),
+          setValue((current) => Math.min(round(current + by, step), max)),
         decr: (by = step) =>
           !disabled &&
-          setValue(current => Math.max(round(current - by, step), min)),
+          setValue((current) => Math.max(round(current - by, step), min)),
         set: (next: number) =>
           !disabled &&
           setValue(Math.max(Math.min(round(next, step), max), min)),
@@ -130,16 +134,16 @@ export const Slider: React.FC<SliderProps> = React.forwardRef<
         step,
         inputRef,
       }),
-      [step, value, focused, disabled, orientation, min, max, step, inputRef]
+      [value, focused, disabled, orientation, min, max, step, inputRef]
     )
     // @ts-ignore
     const realChildren =
       typeof children === 'function' ? children(context) : children
 
-    useEffect(() => {
-      prevValue.current !== value && onChange?.(value)
-      prevValue.current = value
-    }, [value])
+    React.useEffect(() => {
+      prevValue.current !== valueState && storedOnChange.current?.(valueState)
+      prevValue.current = valueState
+    }, [valueState])
 
     return (
       <SliderContext.Provider value={context}>
@@ -151,12 +155,12 @@ export const Slider: React.FC<SliderProps> = React.forwardRef<
             max={max}
             step={step}
             disabled={disabled}
-            onChange={e => setValue(Number(e.target.value))}
-            onFocus={e => {
+            onChange={(e) => setValue(Number(e.target.value))}
+            onFocus={(e) => {
               onFocus?.(e)
               setFocused(true)
             }}
-            onBlur={e => {
+            onBlur={(e) => {
               onBlur?.(e)
               setFocused(false)
             }}
@@ -166,7 +170,7 @@ export const Slider: React.FC<SliderProps> = React.forwardRef<
         </VisuallyHidden>
 
         {React.isValidElement(realChildren) &&
-          cloneElement(realChildren, {
+          React.cloneElement(realChildren, {
             'aria-hidden': realChildren.props.hasOwnProperty('aria-hidden')
               ? realChildren.props['aria-hidden']
               : 'true',
@@ -184,7 +188,7 @@ export const Thumb: React.FC<ThumbProps> = ({children}) => {
   const orientation = useOrientation()
   const progress = useProgress()
   const props = children.props
-  return cloneElement(children, {
+  return React.cloneElement(children, {
     style: Object.assign(
       {
         pointerEvents: 'none',
@@ -211,7 +215,7 @@ export const Track: React.FC<TrackProps> = ({children}) => {
   const mouseRef = useTrack()
   const props = children.props
 
-  return cloneElement(children, {
+  return React.cloneElement(children, {
     style: Object.assign(
       {userSelect: 'none', touchAction: 'none', position: 'relative'},
       props.style
@@ -234,9 +238,9 @@ type MouseState = {
 
 const useTrack = () => {
   const {set, max, min, orientation, inputRef} = useSlider()
-  const mouseRef = useRef<HTMLElement | null>(null)
-  const [mouse, setMouse] = useState<MouseState>({isDown: false})
-  const prevIsDown = useRef<boolean>(mouse.isDown)
+  const mouseRef = React.useRef<HTMLElement | null>(null)
+  const [mouse, setMouse] = React.useState<MouseState>({isDown: false})
+  const prevIsDown = React.useRef<boolean>(mouse.isDown)
 
   useLayoutEffect(() => {
     const current = mouseRef.current
@@ -263,19 +267,19 @@ const useTrack = () => {
       }
 
       const onDown = (e: MouseEvent | TouchEvent) =>
-        setMouse(prev => (prev.isDown ? prev : position(e)))
+        setMouse((prev) => (prev.isDown ? prev : position(e)))
 
       const onUp = (e: MouseEvent | TouchEvent) =>
-        setMouse(prev =>
+        setMouse((prev) =>
           !prev.isDown ? prev : Object.assign(position(e), {isDown: false})
         )
 
-      let tick, ev
+      let tick: number | undefined, ev: MouseEvent | TouchEvent
       const onMove = (e: MouseEvent | TouchEvent) => {
         ev = e // always use latest event despite ticks
         if (tick) return
         tick = raf(() => {
-          setMouse(prev => (!prev.isDown ? prev : position(ev)))
+          setMouse((prev) => (!prev.isDown ? prev : position(ev)))
           tick = void 0
         })
       }
@@ -296,10 +300,10 @@ const useTrack = () => {
         docEl.removeEventListener('mousemove', onMove)
         docEl.removeEventListener('touchmove', onMove)
         /* istanbul ignore next */
-        tick && raf.cancel(tick)
+        tick && caf(tick)
       }
     }
-  }, [mouseRef.current])
+  }, [])
 
   useLayoutEffect(() => {
     if (
@@ -317,13 +321,13 @@ const useTrack = () => {
 
     if (prevIsDown.current && !mouse.isDown) inputRef.current?.focus()
     prevIsDown.current = mouse.isDown
-  }, [mouse, orientation])
+  }, [inputRef, mouse, orientation, max, min, set])
 
   return mouseRef
 }
 
 /* istanbul ignore next */
-if (__DEV__) {
+if (typeof process !== 'undefined' && process.env.NODE_ENV !== 'production') {
   Slider.displayName = 'AccessibleSlider'
   Thumb.displayName = 'Thumb'
   Track.displayName = 'Track'

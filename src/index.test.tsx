@@ -12,8 +12,9 @@ import {
   useDisabled,
   useOrientation,
 } from './index'
-import * as raf from 'raf'
+import * as raf from '@essentials/raf'
 
+// @ts-ignore
 beforeEach(raf.reset)
 
 describe(`<Slider>`, () => {
@@ -22,7 +23,7 @@ describe(`<Slider>`, () => {
 
     render(
       <Slider>
-        {context => {
+        {(context) => {
           value = context
           return <div />
         }}
@@ -147,7 +148,7 @@ describe(`<Slider>`, () => {
 
     render(
       <Slider orientation="vertical">
-        {context => {
+        {(context) => {
           value = context.orientation
           return <div />
         }}
@@ -162,7 +163,7 @@ describe(`<Slider>`, () => {
 
     render(
       <Slider disabled>
-        {context => {
+        {(context) => {
           value = context.disabled
           return <div />
         }}
@@ -177,7 +178,7 @@ describe(`<Slider>`, () => {
 
     render(
       <Slider step={2}>
-        {context => {
+        {(context) => {
           value = context.step
           return <div />
         }}
@@ -192,7 +193,7 @@ describe(`<Slider>`, () => {
 
     render(
       <Slider min={2}>
-        {context => {
+        {(context) => {
           value = context.min
           return <div />
         }}
@@ -207,7 +208,7 @@ describe(`<Slider>`, () => {
 
     render(
       <Slider max={200}>
-        {context => {
+        {(context) => {
           value = context.max
           return <div />
         }}
@@ -222,7 +223,7 @@ describe(`<Slider>`, () => {
 
     render(
       <Slider defaultValue={20}>
-        {context => {
+        {(context) => {
           value = context.value
           return <div />
         }}
@@ -303,7 +304,7 @@ describe(`<Thumb>`, () => {
 })
 
 describe(`<Track>`, () => {
-  const mockRect = values => {
+  const mockRect = (values) => {
     // @ts-ignore
     Element.prototype.getBoundingClientRect = jest.fn(() => {
       return {
@@ -344,6 +345,7 @@ describe(`<Track>`, () => {
 
     act(() => {
       fireMouse(window, 'mousemove', {clientX: 60, clientY: 10})
+      // @ts-ignore
       raf.step({count: 1})
     })
     expect(asFragment()).toMatchSnapshot('value=20')
@@ -355,6 +357,7 @@ describe(`<Track>`, () => {
 
     act(() => {
       fireMouse(window, 'mousemove', {clientX: 90, clientY: 10})
+      // @ts-ignore
       raf.step({count: 1})
     })
     expect(asFragment()).toMatchSnapshot('value=40 [despite move]')
@@ -384,6 +387,7 @@ describe(`<Track>`, () => {
     expect(asFragment()).toMatchSnapshot('value=50 [despite move]')
 
     act(() => {
+      // @ts-ignore
       raf.step({count: 1})
     })
     // should use the last event despite ticks
@@ -410,6 +414,7 @@ describe(`<Track>`, () => {
       fireMouse(window, 'touchmove', {
         changedTouches: [{clientX: 60, clientY: 10}],
       })
+      // @ts-ignore
       raf.step({count: 1})
     })
     expect(asFragment()).toMatchSnapshot('value=20')
@@ -425,6 +430,7 @@ describe(`<Track>`, () => {
       fireMouse(window, 'touchmove', {
         changedTouches: [{clientX: 90, clientY: 10}],
       })
+      // @ts-ignore
       raf.step({count: 1})
     })
     expect(asFragment()).toMatchSnapshot('value=40 [despite move]')
@@ -480,6 +486,7 @@ describe(`<Track>`, () => {
 
     act(() => {
       fireMouse(window, 'mousemove', {clientX: 10, clientY: 240})
+      // @ts-ignore
       raf.step({count: 1})
     })
     expect(asFragment()).toMatchSnapshot('value=20')
@@ -491,6 +498,7 @@ describe(`<Track>`, () => {
 
     act(() => {
       fireMouse(window, 'mousemove', {clientX: 10, clientY: 90})
+      // @ts-ignore
       raf.step({count: 1})
     })
     expect(asFragment()).toMatchSnapshot('value=40 [despite move]')
